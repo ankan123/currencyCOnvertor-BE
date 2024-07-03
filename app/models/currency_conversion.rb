@@ -1,0 +1,2 @@
+class CurrencyConversion < ApplicationRecord
+end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  original_currency: MyString
+  target_currency: MyString
+  original_amount: 9.99
+  converted_amount: 9.99
+  exchange_rate: 9.99
+
+two:
+  original_currency: MyString
+  target_currency: MyString
+  original_amount: 9.99
+  converted_amount: 9.99
+  exchange_rate: 9.99
