@@ -4,6 +4,7 @@ module Api
       protect_from_forgery with: :null_session
 
       def index
+        #remove .all method and return convertors using serializer
         convertors = CurrencyConversion.all.order(created_at: :desc)
         render json: convertors
       end
