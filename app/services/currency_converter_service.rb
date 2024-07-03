@@ -8,13 +8,13 @@ class CurrencyConverterService
     original_currency = conversion_params[:original_currency]
     target_currency = conversion_params[:target_currency]
     amount = conversion_params[:amount]
-
+    #Need to handle timeout error, success and fail error 
     response = Net::HTTP.get(URI("#{API_URL}#{original_currency}"))
     data = JSON.parse(response)
 
     exchange_rate = data['conversion_rates'][target_currency]
     converted_amount = amount.to_f * exchange_rate
-
+   #Put json response logic in a presenter or new present method.
     { 
       original_currency: original_currency, 
       target_currency: target_currency, 
