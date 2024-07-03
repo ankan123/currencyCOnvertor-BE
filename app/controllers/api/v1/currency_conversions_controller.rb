@@ -4,17 +4,20 @@ module Api
       protect_from_forgery with: :null_session
 
       def index
-        convertors = CurrencyConversion.all.order(created_at: :desc)
-        render json: convertors
+        convertors = CurrencyConversion.order(created_at: :desc)
+        render json: convertors, each_serializer: CurrencyConversionSerializer
       end
 
       def create
-        result = CurrencyConverterService.convert(conversion_params)
-        if conversion = CurrencyConversion.create(result)
-          render json: conversion, serializer: CurrencyConversionSerializer
+        @conversion = CurrencyConverterService.new(conversion_params).call
+
+        if @conversion.success?
+          render json: @conversion.result, each_serializer: CurrencyConversionSerializer, status: :created
         else
-          render status: :unprocessable_entity, json: { error: 'Failed to convert currency' }
-      end
+          render status: :unprocessable_entity, json: { error: @conversion.error }
+        end
+      rescue StandardError => e
+        render status: :unprocessable_entity, json: { error: e.message }
       end
 
       private
@@ -25,4 +28,3 @@ module Api
     end
   end
 end
-  
