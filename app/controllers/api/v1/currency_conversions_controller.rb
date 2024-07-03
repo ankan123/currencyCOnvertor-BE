@@ -9,7 +9,9 @@ module Api
       end
 
       def create
-        result = CurrencyConverterService.convert(conversion_params)
+        #Before calling converter service validate the params using validator service and return the error
+        result = CurrencyConverterService.convert(conversion_params).
+        #It's better to use resque block to cache any error and return error using error serializer or error class something with proper error message
         if conversion = CurrencyConversion.create(result)
           render json: conversion, serializer: CurrencyConversionSerializer
         else
