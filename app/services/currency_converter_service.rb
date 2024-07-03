@@ -21,7 +21,7 @@ class CurrencyConverterService
     if response.is_a?(Net::HTTPSuccess)
       data = JSON.parse(response.body)
       exchange_rate = data['conversion_rates'][@target_currency]
-      converted_amount = (@amount.to_f * exchange_rate).round(2)
+      converted_amount = (@amount * exchange_rate).round(2)
 
       currency_conversion = CurrencyConversion.create(
         original_currency: @original_currency,
