@@ -25,7 +25,7 @@ module Api
         missing_params = required_params.select { |param| params[:currency_conversion][param].blank? }
 
         unless missing_params.empty?
-          render json: ErrorSerializer.serialize(format(ErrorMessages::MISSING_PARAMS, missing_params.join(', '))), status: :unprocessable_entity and return
+          render json: ErrorSerializer.serialize(format(ErrorMessages::MISSING_PARAMS)), status: :unprocessable_entity and return
         end
 
         unless params[:currency_conversion][:original_currency].is_a?(String) && params[:currency_conversion][:target_currency].is_a?(String)
